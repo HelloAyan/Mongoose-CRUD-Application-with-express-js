@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 const todoHandler = require("./routerHandler/todoHandler");
 
 
+
 // express app initialization
 const app = express();
 app.use(express.json());
 
 // database connection with mongoose
-mongoose.connect("mongodb://localhost/todos")
-    .then( ()=>{
-        console.log("Connection successful");
-    })
-    .catch((err) =>{
-        console.log(err);
-    })
+mongoose.connect("mongodb://localhost/todos",{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(()=> console.log('Connection successful'))
+    .catch(err => console.log(err))
 
 // Application routes
 app.use('/', todoHandler);
