@@ -16,6 +16,7 @@ mongoose.connect("mongodb://localhost/todos")
     })
 
 // Application routes
+app.use('/', todoHandler);
 
 
 // default error handler
