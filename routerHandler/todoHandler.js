@@ -11,7 +11,9 @@ router.get('/', async(req, res) =>{
         _id: 0,
         _v: 0,
         date: 0,
-    }).exec((err) =>{
+    })
+    .limit(2)
+    .exec((err) =>{
         if(err, data){
             res.status(500).json({
                 //error: "There was a server side error",
@@ -28,6 +30,18 @@ router.get('/', async(req, res) =>{
 
 // get A todo by ID
 router.get('/:id', async(req, res) =>{
+    await Todo.find({_id: req.params.id }, (err) =>{
+        if(err){
+            res.status(500).json({
+                //error: "There was a server side error",
+                message: err,
+            });
+        }else{
+            res.status(200).json({
+                message: "Success",
+            });
+        }
+    })
 
 })
 
@@ -93,6 +107,19 @@ router.put("/:id", async(req, res)=>{
 
 // Delete todo
 router.delete('/:id', async(req, res)=>{
+    await Todo.deleteOne({_id: req.params.id }, (err) =>{
+        if(err){
+            res.status(500).json({
+                //error: "There was a server side error",
+                message: err,
+            });
+        }else{
+            res.status(200).json({
+                message: "Todo was deleted",
+            });
+        }
+    })
+
 
 })
 
