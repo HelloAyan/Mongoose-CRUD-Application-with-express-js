@@ -7,7 +7,11 @@ const Todo = new mongoose.model("Todo", todoSchema);
 
 // get all the todos
 router.get('/', async(req, res) =>{
-    await Todo.find({status: 'active'}, (err) =>{
+    await Todo.find({status: 'active'}).select({
+        _id: 0,
+        _v: 0,
+        date: 0,
+    }).exec((err) =>{
         if(err, data){
             res.status(500).json({
                 //error: "There was a server side error",
